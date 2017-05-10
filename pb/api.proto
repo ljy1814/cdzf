@@ -1,0 +1,48 @@
+syntax = "proto3";
+package pbgen;
+
+service Payment {
+    rpc AliPay(AliPayRequest) returns (AliPayResponse);
+    rpc WxPay(WxPayRequest) returns (WxPayResponse);
+}
+
+message Error {
+       	string msg = 1;
+}
+
+message AliPayRequest {
+	string returnURL = 1;
+	string subject = 2;
+	string outTradeNo = 3;
+	string totalAmount = 4;
+	string productCode = 5;
+}
+
+message AliPayResponse {
+	string url = 1;
+	Error error = 2;
+}
+
+message WxPayRequest {
+	string body = 2;
+	string tradeType = 4;
+	string openId = 5;
+	string spbillCreateIp = 6;
+	int32 totalFee = 7; 
+	string outTradeNO = 8;
+}
+
+message WxPayResponse {
+	string ReturnCode  = 1;
+	string ReturnMsg   = 2;
+
+	string AppId        = 3; 
+	string MchId       = 4; 
+	string NonceStr    = 5; 
+	string Sign         = 6; 
+	string ResultCode  = 7; 
+	string PrepayId    = 8; 
+	string TradeType   = 9;
+
+	Error error = 10;
+}

@@ -1,0 +1,22 @@
+mode = "debug"
+
+http_listen_address = ":8001"
+grpc_listen_address = ":9090"
+
+http_notify_host = "http://xxxx.chongdonglvxing.com/"
+
+[wxpay]
+api_address = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+api_id = "wx03c90d06969dc5f4"
+seller_id = "1398841802"
+key = "T7VkBo6ZotBasPDGqhtGsBtG6XhatRfe"
+notify_path = "/wxpay/cb"
+
+[alipay]
+api_address = "https://openapi.alipay.com/gateway.do"
+api_id = ""
+seller_id = ""
+key = ""
+notify_path = "/alipay/cb"
+
+
