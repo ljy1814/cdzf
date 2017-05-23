@@ -21,4 +21,7 @@ $http->set([
     'log_file'=>__DIR__.'/logs/app.log',
     'daemonize'=> false
 ]);
+if(!file_exists(__DIR__."/logs")){
+    mkdir(__DIR__.'/logs');
+}
 $http->start();
