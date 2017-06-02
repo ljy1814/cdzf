@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Created by PhpStorm.
+ * User: yan
+ * Date: 2017/5/31
+ * Time: 上午11:17
+ */
+include "main.php";
+$daemonize = false;
+$action = $argv[1] ?? null;
+if ($action == null) {
+    print "php server start -D -worker=10\n";
+    print "php server restart -D -worker=10\n";
+    print "php server stop\n";
+}
+$worker_num = 10;
+foreach ($argv as $value){
+    $argvArr = explode("=",$value);
+    if($argvArr[0] == "-D")
+    {
+        $daemonize = true;
+    }
+    if($argvArr[0] == "-worker")
+    {
+        $worker_num = $argvArr[1];
+    }
+}
+
+switch ($action)
+{
+    case "start":
+        serverStart($daemonize,$worker_num);
+        break;
+    case "restart":
+        serverStop();
+        serverStart($daemonize,$worker_num);
+        break;
+    case "stop":
+        serverStop();
+        break;
+}

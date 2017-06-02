@@ -24,7 +24,7 @@ class Config
             'private_key_path' => __DIR__ . '/alipay/rsa_private_key.pem',
         ],
         "wechat" => [
-            "baseUrl" => "http://pay.chongdonglvxing.com/wechat",
+            "baseUrl" => "http://pay.chongdonglvxing.com/pay/wechat/",
             'appid'=>"wx03c90d06969dc5f4",
             'wxmchid' => '1398841802',
 

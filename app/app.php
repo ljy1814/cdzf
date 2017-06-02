@@ -19,6 +19,7 @@ class App
     ];
     private $status = 200;
     private $end = "";
+
     public function __construct(\swoole_http_request $request, \swoole_http_response $response)
     {
 
@@ -26,17 +27,18 @@ class App
         $this->response = $response;
 
     }
+
     public function __destruct()
     {
         // TODO: Implement __destruct() method.
         $this->response->status($this->status);
-        if(\Config::Get('debug')){
+        if (\Config::Get('debug')) {
             $color = 31;
-            if($this->status == 200){
+            if ($this->status == 200) {
                 $color = 32;
             }
-            echo '|'.date('Y-m-d H:i:s').'|'."\033[1;33;0m".$this->request->server['request_method']."\e[0m| \033[1;$color;0m".$this->status."\033[0m| ".sprintf('% 18s', $this->request->server['path_info']).'  |'.sprintf('% 15s', $this->request->server['remote_addr'])."  | \n";
-            echo '[1;34;0m----------------------------------------------------------------------[0m'."\n";
+            echo '|' . date('Y-m-d H:i:s') . '|' . "\033[1;33;0m" . $this->request->server['request_method'] . "\e[0m| \033[1;$color;0m" . $this->status . "\033[0m| " . sprintf('% 18s', $this->request->server['path_info']) . '  |' . sprintf('% 15s', $this->request->server['remote_addr']) . "  | \n";
+            echo '[1;34;0m----------------------------------------------------------------------[0m' . "\n";
         }
         $this->response->end($this->end);
     }
@@ -49,7 +51,7 @@ class App
         if (!isset($this->routing[$path])) {
 
             $this->status = 404;
-            $this->end = json_encode(['code'=>404,'err_msg'=>"很抱歉，您要访问的页面不存在！"]);
+            $this->end = json_encode(['code' => 404, 'err_msg' => "很抱歉，您要访问的页面不存在！"]);
             return;
         }
         call_user_func(['App\App', $this->routing[$path]]);
@@ -81,7 +83,7 @@ class App
         $request->setBizContent(json_encode($paraToken));
         $result = $aop->pageExecute($request);
 
-        $this->end = json_encode(['code'=>200,"data"=>$result]);
+        $this->end = json_encode(['code' => 200, "data" => $result]);
     }
 
     public function WeChat()
@@ -94,8 +96,7 @@ class App
             $baseUrl = urlencode(\Config::Get("wechat.baseUrl"));
             $url = $tools->CreateOauthUrlForCode($baseUrl);
             $this->status = 301;
-            $this->response->header('location',$url);
-           // $this->response->end(json_encode(['code'=>301,'data'=>$url]));
+            $this->response->header('location', $url);
             return;
         }
 
